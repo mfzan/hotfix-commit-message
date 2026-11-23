@@ -13,6 +13,9 @@ MESSAGE = "3am hotfix: reverted my 2am fix and prod is back; no idea why, do not
 
 
 def main():
+    # The gate only accepts 1-179 characters: fail loudly here rather than
+    # shipping an entry the scorer would list as invalid.
+    assert 1 <= len(MESSAGE) <= 179, "commit message must be 1-179 chars"
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     path = os.path.join(out_dir, "entry.txt")
     with open(path, "w", encoding="utf-8", newline="\n") as handle:
